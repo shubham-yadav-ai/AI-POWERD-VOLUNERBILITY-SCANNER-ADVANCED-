@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI — Powered Vulnerability Scanner</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+
+<div class="app">
+
+  <header>
+    <div class="logo">
+      <div class="logo-icon">🛡️</div>
+      <div class="logo-text">
+        <h1>AI POWERED </h1>
+        <p>ADVANCED VULNERABILITY SCANNER</p>
+      </div>
+    </div>
+    <div class="header-stats">
+      <div class="stat-pill"><div class="stat-dot dot-green"></div>AI ENGINE ONLINE</div>
+      <div class="stat-pill"><div class="stat-dot dot-amber"></div>THREAT DB: 2.4M SIGS</div>
+      <div class="stat-pill" id="clock"></div>
+    </div>
+  </header>
+
+  <div class="scan-section">
+    <div class="scan-title">INITIATE <span>TARGET TO BE SCANNED</span></div>
+    <div class="scan-row">
+      <div class="scan-input-wrap">
+        <span class="input-icon">🔍</span>
+        <input class="scan-input" id="domainInput" type="text" placeholder="Enter target domain (e.g. scanme.nmap.org, example.com)" />
+      </div>
+      <button class="scan-btn" id="scanBtn" onclick="startScan()">⚡ SCAN TARGET</button>
+    </div>
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-steps" id="progressSteps">
+        <div class="step" id="step1">DNS Resolve</div>
+        <div class="step" id="step2">Port Scan</div>
+        <div class="step" id="step3">SQL Probe</div>
+        <div class="step" id="step4">XSS Check</div>
+        <div class="step" id="step5">Header Audit</div>
+        <div class="step" id="step6">AI Analysis</div>
+        <div class="step" id="step7">Report Gen</div>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+    </div>
+  </div>
+
+  <div class="terminal" id="terminal"></div>
+
+  <div class="dashboard hidden" id="dashboard">
+    <div class="card tilt" style="animation-delay:0.1s">
+      <div class="card-header">
+        <div class="card-title">Overall Risk Score</div>
+        <div class="card-badge" id="riskBadge">—</div>
+      </div>
+      <div class="risk-score-wrap">
+        <div class="risk-ring">
+          <svg viewBox="0 0 90 90" width="90" height="90">
+            <circle class="ring-bg" cx="45" cy="45" r="38"/>
+            <circle class="ring-fill" id="riskRing" cx="45" cy="45" r="38" stroke="#00f5ff"
+              stroke-dasharray="238.76" stroke-dashoffset="238.76"/>
+          </svg>
+          <div class="ring-center">
+            <div class="ring-num" id="riskNum">0</div>
+            <div class="ring-label">/ 10</div>
+          </div>
+        </div>
+        <div class="risk-details">
+          <div class="risk-row"><span class="risk-label">Threat Level</span><span class="risk-val" id="threatLevel">—</span></div>
+          <div class="risk-row"><span class="risk-label">Open Ports</span><span class="risk-val" id="portsFound">—</span></div>
+          <div class="risk-row"><span class="risk-label">CVEs Matched</span><span class="risk-val" id="cvesFound">—</span></div>
+          <div class="risk-row"><span class="risk-label">Scan Time</span><span class="risk-val" id="scanTime">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tilt" style="animation-delay:0.2s">
+      <div class="card-header">
+        <div class="card-title">Vulnerability Matrix</div>
+        <div class="card-badge badge-info" id="targetLabel">TARGET</div>
+      </div>
+      <div class="scan-results-grid" id="resultsGrid"></div>
+    </div>
+
+    <div class="card tilt" style="animation-delay:0.3s">
+      <div class="card-header">
+        <div class="card-title">Severity Distribution</div>
+        <div class="card-badge badge-info">LIVE</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px" id="severityBreakdown"></div>
+    </div>
+  </div>
+
+  <div class="charts-section hidden" id="chartsSection">
+    <div class="chart-card">
+      <div class="card-header"><div class="card-title">📊 Risk Factor Bar Chart</div></div>
+      <canvas id="barChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="card-header"><div class="card-title">🥧 Vulnerability Pie Chart</div></div>
+      <canvas id="pieChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="card-header"><div class="card-title">📈 Threat Prediction Radar</div></div>
+      <canvas id="radarChart"></canvas>
+    </div>
+  </div>
+
+  <div class="timeline-wrap" id="timelineWrap">
+    <div class="timeline-chart-card">
+      <div class="card-header">
+        <div class="card-title">📉 30-Day Attack Probability Forecast</div>
+        <div class="card-badge badge-warn">AI PREDICTION</div>
+      </div>
+      <canvas id="lineChart" style="max-height:180px"></canvas>
+    </div>
+  </div>
+
+  <div class="ai-section hidden" id="aiSection">
+    <div class="ai-panel">
+      <div class="ai-header">
+        <div class="ai-icon">🤖</div>
+        <div>
+          <div style="font-family:'Orbitron';font-size:12px;letter-spacing:2px;color:var(--neon-purple)">AI SECURITY INTELLIGENCE</div>
+          <div class="ai-thinking" id="aiThinking">ANALYZING THREAT SURFACE...</div>
+        </div>
+      </div>
+      <div class="ai-output" id="aiOutput"></div>
+    </div>
+    <div class="ai-panel">
+      <div class="card-header">
+        <div class="card-title">🎯 Attack Predictions</div>
+        <div class="card-badge badge-warn">NEXT 30 DAYS</div>
+      </div>
+      <div class="prediction-rows" id="predictionRows"></div>
+    </div>
+  </div>
+
+  <div class="solutions-section hidden" id="solutionsSection">
+    <div class="card-title" style="margin-bottom:16px;font-family:'Orbitron';font-size:12px;letter-spacing:3px;">⚙️ REMEDIATION PLAYBOOK</div>
+    <div class="glow-sep"></div>
+    <div class="solutions-grid" id="solutionsGrid"></div>
+  </div>
+
+  <div class="report-section hidden" id="reportSection">
+    <div class="card-title" style="margin-bottom:16px;font-family:'Orbitron';font-size:12px;letter-spacing:3px;">📋 EXPORT INTELLIGENCE REPORT</div>
+    <div class="glow-sep"></div>
+    <div class="report-btn-wrap">
+      <button class="report-btn primary" onclick="downloadPDF()">
+        <span class="btn-icon">📄</span>PDF REPORT
+        <span style="font-size:10px;color:var(--text-dim);font-family:'Share Tech Mono'">Full Security Audit</span>
+      </button>
+      <button class="report-btn" onclick="downloadJSON()">
+        <span class="btn-icon">⚙️</span>JSON EXPORT
+        <span style="font-size:10px;color:var(--text-dim);font-family:'Share Tech Mono'">Raw Scan Data</span>
+      </button>
+      <button class="report-btn" onclick="copyReport()">
+        <span class="btn-icon">📋</span>COPY REPORT
+        <span style="font-size:10px;color:var(--text-dim);font-family:'Share Tech Mono'">Clipboard Export</span>
+      </button>
+      <button class="report-btn" onclick="shareReport()">
+        <span class="btn-icon">🔗</span>SHARE LINK
+        <span style="font-size:10px;color:var(--text-dim);font-family:'Share Tech Mono'">Encrypted URL</span>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html
