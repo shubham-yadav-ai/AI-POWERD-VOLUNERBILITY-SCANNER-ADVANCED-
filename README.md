@@ -1,7 +1,7 @@
 # 🛡️ AI POWERED — Advanced Vulnerability Scanner
 
 
-![Version](https://img.shields.io-cyan)
+![Version](https://img.shields.io/badge/version-3.0-cyan)
 
 
 ![License](https://img.shields.io/badge/license-MIT-green)
