@@ -130,7 +130,7 @@ Claim it does real penetration testing — the scan results are simulated
 👤 Author
 
 Shubham Yadav
-GitHub: @shubham-yadav-ai
+GitHub: @shubham-yadav-07
 
 --
 
