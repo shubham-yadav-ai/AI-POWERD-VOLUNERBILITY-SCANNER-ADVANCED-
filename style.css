@@ -285,3 +285,74 @@ main { max-width: 1100px; margin: 0 auto; padding: 32px 20px; }
   .grid-3, .grid-2, .vuln-grid, .fix-grid { grid-template-columns: 1fr; }
   .input-row { flex-direction: column; }
 }
+
+/* Hacker Dark Theme */
+body.dark {
+  background: #000000;
+  color: #00ff9f;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Cards */
+body.dark .card {
+  background: #050505;
+  border: 1px solid #00ff9f33;
+  box-shadow: 0 0 10px #00ff9f22;
+}
+
+/* Navbar */
+body.dark nav {
+  background: #020202;
+  border-bottom: 1px solid #00ff9f33;
+}
+
+/* Inputs */
+body.dark input {
+  background: #000;
+  color: #00ff9f;
+  border: 1px solid #00ff9f55;
+}
+
+/* Buttons */
+body.dark button {
+  background: #000;
+  color: #00ff9f;
+  border: 1px solid #00ff9f;
+  transition: 0.2s;
+}
+
+body.dark button:hover {
+  background: #00ff9f;
+  color: #000;
+  box-shadow: 0 0 10px #00ff9f;
+}
+
+/* Terminal feel */
+body.dark .terminal {
+  background: #000;
+  border: 1px solid #00ff9f44;
+  color: #00ff9f;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Progress bar */
+body.dark .progress-fill {
+  background: #00ff9f;
+  box-shadow: 0 0 8px #00ff9f;
+}
+
+/* Score bar */
+body.dark .score-bar {
+  background: #00ff9f;
+}
+
+/* Links (if any) */
+body.dark a {
+  color: #00ff9f;
+}
+
+/* Glowing effect for headings */
+body.dark h1, 
+body.dark h2 {
+  text-shadow: 0 0 8px #00ff9f;
+}
